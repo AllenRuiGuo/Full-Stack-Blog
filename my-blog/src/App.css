@@ -46,9 +46,14 @@ nav a {
   padding: 24px 32px;
 }
 
-nav a:hover {
+/* nav a:hover {
   background: black;
   color: white;
+} */
+
+.brandimage {
+  height: 24px;
+  width: auto;
 }
 
 #page-body {
