@@ -26,13 +26,13 @@ const NavBar = () => {
 
         <div className="navbar-collapse collapse flex-grow-1 justify-content-end" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item">
+            <li className="nav-item me-3">
               <Link to="/">Home</Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item me-3">
               <Link to="/about">About</Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item me-3">
               <Link to="/articles">Articles</Link>
             </li>
           </ul>
@@ -40,6 +40,7 @@ const NavBar = () => {
             {user ? (
               <button
                 type="button"
+                className="loginButton"
                 onClick={() => {
                   signOut(getAuth());
                 }}
@@ -49,6 +50,7 @@ const NavBar = () => {
             ) : (
               <button
                 type="button"
+                className="loginButton"
                 onClick={() => {
                   navigate("/login");
                 }}
