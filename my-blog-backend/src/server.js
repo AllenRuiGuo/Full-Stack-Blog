@@ -1,5 +1,5 @@
 import fs from "fs";
-import admin from "firebase-admin";
+import admin, { messaging } from "firebase-admin";
 import express from "express";
 import { MongoClient } from "mongodb";
 import "dotenv/config";
@@ -109,6 +109,20 @@ app.post("/api/articles/:name/comments", async (req, res) => {
     res.json(article);
   } else {
     res.send("That article doesn't exist");
+  }
+});
+
+// Fetch homepage content
+app.get("/api/homepage", async (req, res) => {
+  try {
+    const homepageContent = await db.collection("homepage").findOne({});
+    if (homepageContent) {
+      res.json(homepageContent);
+    } else {
+      res.status(404).json({ message: "Homepage content not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
