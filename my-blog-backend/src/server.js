@@ -20,10 +20,12 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../build")));
 
+// Serve the React app
 app.get(/^(?!\/api).+/, (req, res) => {
   res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
+// Auth middleware
 app.use(async (req, res, next) => {
   const { authtoken } = req.headers;
 
@@ -38,6 +40,7 @@ app.use(async (req, res, next) => {
   next();
 });
 
+// Fetch article by name
 app.get("/api/articles/:name", async (req, res) => {
   const { name } = req.params;
   const { uid } = req.user;
@@ -52,6 +55,7 @@ app.get("/api/articles/:name", async (req, res) => {
   }
 });
 
+// Auth check middleware
 app.use((req, res, next) => {
   if (req.user) {
     next();
@@ -60,6 +64,7 @@ app.use((req, res, next) => {
   }
 });
 
+// Upvote article
 app.put("/api/articles/:name/upvote", async (req, res) => {
   const { name } = req.params;
   const { uid } = req.user;
@@ -86,6 +91,7 @@ app.put("/api/articles/:name/upvote", async (req, res) => {
   }
 });
 
+// Add comment to article
 app.post("/api/articles/:name/comments", async (req, res) => {
   const { name } = req.params;
   const { text } = req.body;
@@ -106,6 +112,7 @@ app.post("/api/articles/:name/comments", async (req, res) => {
   }
 });
 
+// Connect to the database and start the server
 const PORT = process.env.PORT || 8000;
 
 connectToDb(() => {
