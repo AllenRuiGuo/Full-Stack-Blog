@@ -126,6 +126,29 @@ app.get("/api/homepage", async (req, res) => {
   }
 });
 
+// Create or update homepage content
+app.post("/api/homepage", async (req, res) => {
+  const { header, paragraphs, imageUrl } = req.body;
+
+  try {
+    let homepageContent = await db.collection("homepage").findOne({});
+    if (homepageContent) {
+      // Update the existing homepage content
+      await db.collection("homepage").updateOne(
+        {},
+        { $set: { header, paragraphs, imageUrl } }
+      );
+    } else {
+      // Insert new homepage content
+      homepageContent = { header, paragraphs, imageUrl };
+      await db.collection("homepage").insertOne(homepageContent);
+    }
+    res.json(homepageContent);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Connect to the database and start the server
 const PORT = process.env.PORT || 8000;
 
