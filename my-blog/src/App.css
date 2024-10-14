@@ -58,6 +58,8 @@ nav a {
   background-color: #F8F9FA;
   font-weight: 500;
   cursor: pointer;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .brandimage {
