@@ -1,10 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import useUser from "./hooks/useUser";
+import { useState } from "react";
 
 const NavBar = () => {
   const { user } = useUser();
   const navigate = useNavigate();
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-light">
       <div className="container-fluid">
@@ -18,22 +23,23 @@ const NavBar = () => {
           data-bs-toggle="collapse" 
           data-bs-target="#navbarNav" 
           aria-controls="navbarNav"
-          aria-expanded="false" 
+          aria-expanded={!isNavCollapsed ? true : false} 
           aria-label="Toggle navigation"
+          onClick={handleNavCollapse}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="navbar-collapse collapse flex-grow-1 justify-content-end" id="navbarNav">
+        <div className={`navbar-collapse collapse flex-grow-1 justify-content-end ${!isNavCollapsed ? "show": ""}`} id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item me-3">
-              <Link to="/">Home</Link>
+              <Link to="/" onClick={() => setIsNavCollapsed(true)}>Home</Link>
             </li>
             <li className="nav-item me-3">
-              <Link to="/about">About</Link>
+              <Link to="/about" onClick={() => setIsNavCollapsed(true)}>About</Link>
             </li>
             <li className="nav-item me-3">
-              <Link to="/articles">Articles</Link>
+              <Link to="/articles" onClick={() => setIsNavCollapsed(true)}>Articles</Link>
             </li>
           </ul>
           <div>
@@ -43,6 +49,7 @@ const NavBar = () => {
                 className="loginButton"
                 onClick={() => {
                   signOut(getAuth());
+                  setIsNavCollapsed(true);
                 }}
               >
                 Log out
@@ -53,6 +60,7 @@ const NavBar = () => {
                 className="loginButton"
                 onClick={() => {
                   navigate("/login");
+                  setIsNavCollapsed(true);
                 }}
               >
                 Log In
