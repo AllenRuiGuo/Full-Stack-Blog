@@ -1,34 +1,36 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 const AboutPage = () => {
+  const [content, setContent] = useState({ header: "", paragraphs: [] });
+  const [loading, setLoading] = useState(true); 
+
+  useEffect(() => {
+    const fetchAboutPageContent = async () => {
+      try {
+        const response = await axios.get("/api/about");
+        setContent(response.data); // Update the content state with the fetched data
+        setLoading(false); // Stop the loading state
+      } catch (error) {
+        console.error("Error to fetch about page content: ", error);
+        setLoading(false);
+      }
+    };
+    
+    fetchAboutPageContent();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // Display a loading indicator while fetching the data
+  }
+
   return (
-    <>
-      <h1>About Me</h1>
-      <p>
-        Welcome to my blog! Proin congue ligula id risus posuere, vel eleifend
-        ex egestas. Sed in turpis leo. Aliquam malesuada in massa tincidunt
-        egestas. Nam consectetur varius turpis, non porta arcu porttitor non. In
-        tincidunt vulputate nulla quis egestas. Ut eleifend ut ipsum non
-        fringilla. Praesent imperdiet nulla nec est luctus, at sodales purus
-        euismod.
-      </p>
-      <p>
-        Donec vel mauris lectus. Etiam nec lectus urna. Sed sodales ultrices
-        dapibus. Nam blandit tristique risus, eget accumsan nisl interdum eu.
-        Aenean ac accumsan nisi. Nunc vel pulvinar diam. Nam eleifend egestas
-        viverra. Donec finibus lectus sed lorem ultricies, eget ornare leo
-        luctus. Morbi vehicula, nulla eu tempor interdum, nibh elit congue
-        tellus, ac vulputate urna lorem nec nisi. Morbi id consequat quam.
-        Vivamus accumsan dui in facilisis aliquet.,
-      </p>
-      <p>
-        Etiam nec lectus urna. Sed sodales ultrices dapibus. Nam blandit
-        tristique risus, eget accumsan nisl interdum eu. Aenean ac accumsan
-        nisi. Nunc vel pulvinar diam. Nam eleifend egestas viverra. Donec
-        finibus lectus sed lorem ultricies, eget ornare leo luctus. Morbi
-        vehicula, nulla eu tempor interdum, nibh elit congue tellus, ac
-        vulputate urna lorem nec nisi. Morbi id consequat quam. Vivamus accumsan
-        dui in facilisis aliquet.,
-      </p>
-    </>
+    <div className="container x-padding-container">
+      <h1 className="text-center pb-3">{content.header}</h1>
+      {content.paragraphs.map((paragraph, index) => (
+        <p key={index}>{paragraph}</p>
+      ))}
+    </div>
   );
 };
 
