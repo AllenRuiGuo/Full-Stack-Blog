@@ -136,3 +136,8 @@ p {
   display: block;
   margin-top: 16px;
 }
+
+.homepage-thumbnail-image {
+  width: 100%;
+  height: auto;
+}

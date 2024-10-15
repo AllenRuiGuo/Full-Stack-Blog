@@ -26,8 +26,8 @@ const HomePage = () => {
 
   return (
     <div className="container x-padding-container">
-      <h1>{content.header}</h1>
-      {content.imageUrl && <img src={content.imageUrl} alt="Homepage thumbnail image" className="homepage-thumbnail-image"/>}
+      <h1 className="text-center pb-2">{content.header}</h1>
+      {content.imageUrl && <img src={content.imageUrl} alt="Homepage thumbnail image" className="homepage-thumbnail-image py-3"/>}
       {content.paragraphs.map((paragraph, index) => (
         <p key={index}>{paragraph}</p>
       ))}
