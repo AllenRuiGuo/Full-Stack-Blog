@@ -1,11 +1,13 @@
 import fs from "fs";
-import admin, { messaging } from "firebase-admin";
+import admin from "firebase-admin";
 import express from "express";
 import { MongoClient } from "mongodb";
 import "dotenv/config";
 import { db, connectToDb } from "./db.js";
 import path from "path";
 import { fileURLToPath } from "url";
+
+const { messaging } = admin;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
