@@ -165,6 +165,29 @@ app.get("/api/about", async (req, res) => {
   }
 });
 
+// Create or update about page content
+app.post("/api/about", async (req, res) => {
+  const { header, paragraphs} = req.body;
+
+  try {
+    let aboutpageContent = await db.collection("aboutpage").findOne({});
+    if(aboutpageContent) {
+      // Update the existing about page content
+      await db.collection("aboutpage").updateOne(
+        {},
+        { $set: { header, paragraphs } }
+      );
+    } else {
+      // Insert new about page content
+      aboutpageContent = { header, paragraphs };
+      await db.collection("aboutpage").insertOne(aboutpageContent);
+    }
+    res.json(aboutpageContent);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Connect to the database and start the server
 const PORT = process.env.PORT || 8000;
 
