@@ -151,6 +151,20 @@ app.post("/api/homepage", async (req, res) => {
   }
 });
 
+// Fetch about page content
+app.get("/api/about", async (req, res) => {
+  try {
+    const aboutpageContent = await db.collection("aboutpage").findOne({});
+    if (aboutpageContent) {
+      res.json(aboutpageContent);
+    } else {
+      res.status(404).json({ message: "About page content not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Connect to the database and start the server
 const PORT = process.env.PORT || 8000;
 
