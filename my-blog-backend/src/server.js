@@ -188,6 +188,20 @@ app.post("/api/about", async (req, res) => {
   }
 });
 
+// Fetch articles
+app.get("/api/articles", async (req, res) => {
+  try {
+    const articles = await db.collection("articles").find({}).toArray();
+    if (articles.length > 0) {
+      res.json(articles);
+    } else {
+      res.status(404).json({ message: "No articles found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Connect to the database and start the server
 const PORT = process.env.PORT || 8000;
 
