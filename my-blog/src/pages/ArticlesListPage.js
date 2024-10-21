@@ -26,10 +26,10 @@ const ArticlesListPage = () => {
   }
 
   return (
-    <>
+    <div className="container x-padding-container">
       <h1 className="text-center pb-3">Articles</h1>
       <ArticlesList articles={articles} />
-    </>
+    </div>
   );
 };
 
