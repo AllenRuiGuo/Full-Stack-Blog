@@ -46,7 +46,7 @@ app.use(async (req, res, next) => {
 app.get("/api/articles/:name", async (req, res) => {
   const { name } = req.params;
   const { uid } = req.user;
-  const article = await db.collection("articles").findOne({ name });
+  const article = await db.collection("articleaction").findOne({ name });
 
   if (article) {
     const upvoteIds = article.upvoteIds || [];
@@ -71,14 +71,14 @@ app.put("/api/articles/:name/upvote", async (req, res) => {
   const { name } = req.params;
   const { uid } = req.user;
 
-  const article = await db.collection("articles").findOne({ name });
+  const article = await db.collection("articleaction").findOne({ name });
 
   if (article) {
     const upvoteIds = article.upvoteIds || [];
     const canUpvote = uid && !upvoteIds.includes(uid);
 
     if (canUpvote) {
-      await db.collection("articles").updateOne(
+      await db.collection("articleaction").updateOne(
         { name },
         {
           $inc: { upvotes: 1 },
@@ -86,7 +86,7 @@ app.put("/api/articles/:name/upvote", async (req, res) => {
         }
       );
     }
-    const updatedArticle = await db.collection("articles").findOne({ name });
+    const updatedArticle = await db.collection("articleaction").findOne({ name });
     res.json(updatedArticle);
   } else {
     res.send("That article doesn't exist");
@@ -99,13 +99,13 @@ app.post("/api/articles/:name/comments", async (req, res) => {
   const { text } = req.body;
   const { email } = req.user;
 
-  await db.collection("articles").updateOne(
+  await db.collection("articleaction").updateOne(
     { name },
     {
       $push: { comments: { postedBy: email, text } },
     }
   );
-  const article = await db.collection("articles").findOne({ name });
+  const article = await db.collection("articleaction").findOne({ name });
 
   if (article) {
     res.json(article);
@@ -191,7 +191,7 @@ app.post("/api/about", async (req, res) => {
 // Fetch articles
 app.get("/api/articles", async (req, res) => {
   try {
-    const articles = await db.collection("articles").find({}).toArray();
+    const articles = await db.collection("article").find({}).toArray();
     if (articles.length > 0) {
       res.json(articles);
     } else {
