@@ -21,7 +21,13 @@ const HomePage = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>; // Display a loading indicator while fetching the data
+    return (
+      <div className="d-flex justify-content-center align-items-center">
+        <div className="spinner-border text-primary" role="status">
+          
+        </div>
+      </div>
+    )
   }
 
   return (

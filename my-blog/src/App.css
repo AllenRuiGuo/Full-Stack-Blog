@@ -141,6 +141,10 @@ textarea {
   height: auto;
 }
 
+.loading-spinner {
+  height: 100vh;
+}
+
 @media (max-width: 576px) {
   .x-padding-container {
     padding: 0 24px !important;
