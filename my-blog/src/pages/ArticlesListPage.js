@@ -22,7 +22,12 @@ const ArticlesListPage = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-overlay">
+        <div className="spinner-border text-primary large-spinner" role="status">         
+        </div>
+      </div>
+    )
   }
 
   return (
