@@ -22,9 +22,8 @@ const HomePage = () => {
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center">
-        <div className="spinner-border text-primary" role="status">
-          
+      <div className="loading-overlay">
+        <div className="spinner-border text-primary large-spinner" role="status">         
         </div>
       </div>
     )
