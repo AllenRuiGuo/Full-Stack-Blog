@@ -21,7 +21,12 @@ const AboutPage = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>; // Display a loading indicator while fetching the data
+    return (
+      <div className="loading-overlay">
+        <div className="spinner-border text-primary large-spinner" role="status">         
+        </div>
+      </div>
+    )
   }
 
   return (
