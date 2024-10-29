@@ -46,14 +46,25 @@ app.use(async (req, res, next) => {
 app.get("/api/articles/:name", async (req, res) => {
   const { name } = req.params;
   const { uid } = req.user;
-  const article = await db.collection("articleaction").findOne({ name });
 
-  if (article) {
-    const upvoteIds = article.upvoteIds || [];
-    article.canUpvote = uid && !upvoteIds.includes(uid);
-    res.json(article);
-  } else {
-    res.sendStatus(404);
+  try {
+    const articleMeta = await db.collection("articleaction").findOne({ name });
+    const articleContent = await db.collection("article").findOne({ name });
+
+    if (articleMeta && articleContent) {
+      const upvoteIds = articleMeta.upvoteIds || [];
+      articleMeta.canUpvote = uid && !upvoteIds.includes(uid);
+
+      const fullArticle = {
+        ...articleMeta,
+        ...articleContent,
+      };
+      res.json(fullArticle);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
