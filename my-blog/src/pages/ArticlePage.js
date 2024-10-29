@@ -1,20 +1,23 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import articles from "./article-content";
 import NotFoundPage from "./NotFoundPage";
 import CommentsList from "../components/CommentsList";
 import AddCommentForm from "../components/AddCommentForm";
 import useUser from "../hooks/useUser";
+import { title } from "process";
 
 const ArticlePage = () => {
   const navigate = useNavigate();
 
   const [articleInfo, setArticleInfo] = useState({
+    title: "",
+    content: [],
     upvotes: 0,
     comments: [],
     canUpvote: false,
   });
+
   const { canUpvote } = articleInfo;
   const { articleId } = useParams();
 
@@ -22,40 +25,45 @@ const ArticlePage = () => {
 
   useEffect(() => {
     const loadArticleInfo = async () => {
-      const token = user && (await user.getIdToken());
-      const headers = token ? { authtoken: token } : {};
-      const response = await axios.get(`/api/articles/${articleId}`, {
-        headers,
-      });
-      const newArticleInfo = response.data;
-      setArticleInfo(newArticleInfo);
+      try {
+        const token = user && (await user.getIdToken());
+        const headers = token ? { authtoken: token } : {};
+        const response = await axios.get(`/api/articles/${articleId}`, {
+          headers,
+        });
+        setArticleInfo(response.data);
+      } catch (error) {
+        console.error("Error loading article: ", error);
+      }
     };
+
     if (!isLoading) {
       loadArticleInfo();
     }
-  }, [isLoading, user]);
-
-  const article = articles.find((article) => article.name === articleId);
+  }, [isLoading, user, articleId]);
 
   const addUpvote = async () => {
-    const token = user && (await user.getIdToken());
-    const headers = token ? { authtoken: token } : {};
-    const response = await axios.put(
+    try {
+      const token = user && (await user.getIdToken());
+      const headers = token ? { authtoken: token } : {};
+      const response = await axios.put(
       `/api/articles/${articleId}/upvote`,
       null,
       { headers }
     );
-    const updatedArticle = response.data;
-    setArticleInfo(updatedArticle);
+    setArticleInfo(response.data);
+    } catch (error) {
+      console.error("Error adding upvote: ", error);
+    }
   };
 
-  if (!article) {
+  if (!articleInfo.title) {
     return <NotFoundPage />;
   }
 
   return (
     <>
-      <h1>{article.title}</h1>
+      <h1>{articleInfo.title}</h1>
       <div className="upvotes-section">
         {user ? (
           <button onClick={addUpvote}>
@@ -74,7 +82,7 @@ const ArticlePage = () => {
           This article has {articleInfo.upvotes} upvote(s)
         </p>
       </div>
-      {article.content.map((paragraph, i) => (
+      {articleInfo.content.map((paragraph, i) => (
         <p key={i}>{paragraph}</p>
       ))}
       {user ? (
