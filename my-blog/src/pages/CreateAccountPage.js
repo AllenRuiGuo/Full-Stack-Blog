@@ -24,31 +24,37 @@ const CreateAccountPage = () => {
   };
 
   return (
-    <>
-      <h1>Create Account</h1>
-      {error && <p className="error">{error}</p>}
-      <input
-        placeholder="Your email address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Your password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Re-enter your password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      <button onClick={createAccount}>Create Account</button>
-      <Link to="/login" className="link">
-        Already have an account? Log in here
-      </Link>
-    </>
+    <div className="container x-padding-container">
+      <h1 className="text-center mb-4">Create Account</h1>
+      <div className="login-container text-center">
+        {error && <p className="error">{error}</p>}
+        <input
+          type= "email"
+          className="my-2"
+          placeholder="Your email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          className="my-2"
+          type="password"
+          placeholder="Your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          className="my-2"
+          type="password"
+          placeholder="Re-enter your password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <button onClick={createAccount} className="my-2">Create Account</button>
+        <Link to="/login" className="link">
+          Already have an account? Log in here
+        </Link>
+      </div>     
+    </div>
   );
 };
 
