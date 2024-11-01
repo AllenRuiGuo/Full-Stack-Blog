@@ -20,25 +20,30 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      {error && <p className="error">{error}</p>}
-      <input
-        placeholder="Your email address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Your password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={longIn}>Log In</button>
-      <Link to="/create-account" className="link">
-        Don't have an account? Create one here
-      </Link>
-    </>
+    <div className="container x-padding-container">
+      <h1 className="text-center mb-4">Log In</h1>
+      <div className="login-container text-center">
+          {error && <p className="error">{error}</p>}
+          <input
+            className="my-2"
+            type="email"
+            placeholder="Your email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="my-2"
+            type="password"
+            placeholder="Your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={longIn} className="my-2 w-100">Log In</button>
+          <Link to="/create-account" className="link">
+            Don't have an account? Create one
+          </Link>
+      </div>    
+    </div>
   );
 };
 
