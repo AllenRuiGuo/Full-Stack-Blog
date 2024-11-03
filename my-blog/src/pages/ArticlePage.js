@@ -98,20 +98,22 @@ const ArticlePage = () => {
       {articleInfo.content.map((paragraph, i) => (
         <p key={i}>{paragraph}</p>
       ))}
-      {user ? (
-        <AddCommentForm
-          articleName={articleId}
-          onArticleUpdated={(updatedArticle) => setArticleInfo(updatedArticle)}
-        />
-      ) : (
-        <button
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          Log in to add a comment
-        </button>
-      )}
+      <div className="comments-section d-flex justify-content-end align-items-center mt-3">
+        {user ? (
+          <AddCommentForm
+            articleName={articleId}
+            onArticleUpdated={(updatedArticle) => setArticleInfo(updatedArticle)}
+          />
+        ) : (
+          <button
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Log in to add a comment
+          </button>
+        )}
+      </div>    
       <CommentsList comments={articleInfo.comments} />
     </div>
   );
