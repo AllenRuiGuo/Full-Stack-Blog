@@ -75,8 +75,8 @@ const ArticlePage = () => {
   }
 
   return (
-    <>
-      <h1>{articleInfo.title}</h1>
+    <div className="container x-padding-container">
+      <h1 className="text-center mb-5">{articleInfo.title}</h1>
       <div className="upvotes-section">
         {user ? (
           <button onClick={addUpvote}>
@@ -113,7 +113,7 @@ const ArticlePage = () => {
         </button>
       )}
       <CommentsList comments={articleInfo.comments} />
-    </>
+    </div>
   );
 };
 
