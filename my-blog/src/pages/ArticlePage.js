@@ -76,8 +76,11 @@ const ArticlePage = () => {
 
   return (
     <div className="container x-padding-container">
-      <h1 className="text-center mb-5">{articleInfo.title}</h1>
-      <div className="upvotes-section">
+      <h1 className="text-center mb-4">{articleInfo.title}</h1>
+      <div className="upvotes-section d-flex justify-content-end align-items-center mb-3">
+        <p style={{ margin: 16 }}>
+          This article has {articleInfo.upvotes} upvote(s)
+        </p>
         {user ? (
           <button onClick={addUpvote}>
             {canUpvote ? "Upvote" : "Already Upvoted"}
@@ -90,10 +93,7 @@ const ArticlePage = () => {
           >
             Log in to upvote
           </button>
-        )}
-        <p style={{ margin: 16 }}>
-          This article has {articleInfo.upvotes} upvote(s)
-        </p>
+        )}        
       </div>
       {articleInfo.content.map((paragraph, i) => (
         <p key={i}>{paragraph}</p>
