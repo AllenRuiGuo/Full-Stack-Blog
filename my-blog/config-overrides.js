@@ -1,16 +1,20 @@
+const { override } = require('customize-cra');
 const webpack = require('webpack');
 
-module.exports = function override(config) {
+module.exports = override((config) => {
+  // Fallbacks for process and buffer
     config.resolve.fallback = {
-        ...config.resolve.fallback,
-        process: require.resolve("process/browser"),
-    };
+    process: require.resolve('process/browser'),
+    buffer: require.resolve('buffer/'),
+};
 
-    config.plugins = (config.plugins || []).concat([
-        new webpack.ProvidePlugin({
-            process: "process/browser",
-        }),
-    ]);
+  // Provide process and Buffer globally
+    config.plugins.push(
+    new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer'],
+    })
+);
 
     return config;
-}
+});

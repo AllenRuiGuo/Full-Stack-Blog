@@ -18,6 +18,7 @@ const ArticlePage = () => {
     canUpvote: false,
   });
 
+  const [loading, setLoading] = useState(true);
   const { canUpvote } = articleInfo;
   const { articleId } = useParams();
 
@@ -32,8 +33,10 @@ const ArticlePage = () => {
           headers,
         });
         setArticleInfo(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error loading article: ", error);
+        setLoading(false);
       }
     };
 
@@ -56,6 +59,16 @@ const ArticlePage = () => {
       console.error("Error adding upvote: ", error);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="loading-overlay">
+        <div className="spinner-border text-primary large-spinner" role="status">         
+        </div>
+      </div>
+    )
+  }
+
 
   if (!articleInfo.title) {
     return <NotFoundPage />;
