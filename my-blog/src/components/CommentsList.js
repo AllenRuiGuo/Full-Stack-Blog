@@ -6,10 +6,10 @@ const CommentsList = ({ comments }) => {
 
   return(
     <>
-      <h2>Comments</h2>
+      <h2 className="mb-3">Comments</h2>
       {comments.map((comment) => (
         <div className="comment" key={comment.postedBy + ": " + comment.text}>
-          <h5>{getDisplayName(comment.postedBy)}</h5>
+          <h6>{getDisplayName(comment.postedBy)}</h6>
           <p>{comment.text}</p>
         </div>
       ))}
