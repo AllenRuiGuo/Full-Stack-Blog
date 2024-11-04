@@ -1,13 +1,20 @@
-const CommentsList = ({ comments }) => (
-  <>
-    <h3>Comments:</h3>
-    {comments.map((comment) => (
-      <div className="comment" key={comment.postedBy + ": " + comment.text}>
-        <h4>{comment.postedBy}</h4>
-        <p>{comment.text}</p>
-      </div>
-    ))}
-  </>
-);
+const CommentsList = ({ comments }) => {
+  const getDisplayName = (email) => {
+    const [username] = email.split("@");
+    return username;
+  };
+
+  return(
+    <>
+      <h2>Comments</h2>
+      {comments.map((comment) => (
+        <div className="comment" key={comment.postedBy + ": " + comment.text}>
+          <h5>{getDisplayName(comment.postedBy)}</h5>
+          <p>{comment.text}</p>
+        </div>
+      ))}
+    </>
+  );
+};
 
 export default CommentsList;
