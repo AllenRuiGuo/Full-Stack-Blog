@@ -77,8 +77,8 @@ const ArticlePage = () => {
   return (
     <div className="container x-padding-container">
       <h1 className="text-center mb-4">{articleInfo.title}</h1>
-      <div className="upvotes-section d-flex justify-content-end align-items-center">
-        <p style={{ margin: 16 }}>
+      <div className="upvotes-section d-flex justify-content-start align-items-center">
+        <p className="my-3 me-3">
           This article has {articleInfo.upvotes} upvote(s)
         </p>
         {user ? (
@@ -101,7 +101,7 @@ const ArticlePage = () => {
         ))}
       </div>
       <hr />
-      <div className="comments-section d-flex justify-content-end align-items-center mt-4">
+      <div className="comments-section d-flex justify-content-start align-items-center mt-4">
         {user ? (
           <AddCommentForm
             articleName={articleId}

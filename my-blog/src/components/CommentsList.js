@@ -6,7 +6,7 @@ const CommentsList = ({ comments }) => {
 
   return(
     <>
-      <h2 className="mb-4">Comments</h2>
+      <h2 className="mt-3 mb-4">Comments</h2>
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div className="comment" key={comment.postedBy + ": " + comment.text}>
