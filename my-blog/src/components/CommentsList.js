@@ -15,7 +15,7 @@ const CommentsList = ({ comments }) => {
           </div>
         ))
       ) : (
-        <h5 className="text-center">There is no comment yet.</h5>
+        <h5 className="text-center text-black-50">There is no comment yet.</h5>
       )}
     </>
   );
