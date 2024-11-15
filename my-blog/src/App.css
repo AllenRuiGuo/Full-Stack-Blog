@@ -199,7 +199,8 @@ textarea {
 }
 
 button:disabled {
-  background-color: #cccccc;
+  color: #555555;
+  background-color: #d6d6d6;
   pointer-events: none;
 }
 
