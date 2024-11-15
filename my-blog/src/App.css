@@ -198,6 +198,11 @@ textarea {
   padding: 0 16px;
 }
 
+button:disabled {
+  background-color: #cccccc;
+  pointer-events: none;
+}
+
 @media (max-width: 576px) {
   .x-padding-container {
     padding: 0 24px !important;
