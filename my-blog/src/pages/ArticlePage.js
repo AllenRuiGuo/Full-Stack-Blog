@@ -82,7 +82,7 @@ const ArticlePage = () => {
           This article has {articleInfo.upvotes} upvote(s)
         </p>
         {user ? (
-          <button onClick={addUpvote}>
+          <button onClick={addUpvote} disabled={!canUpvote}>
             {canUpvote ? "Upvote" : "Already Upvoted"}
           </button>
         ) : (
