@@ -82,25 +82,47 @@ app.put("/api/articles/:name/upvote", async (req, res) => {
   const { name } = req.params;
   const { uid } = req.user;
 
-  const article = await db.collection("articleaction").findOne({ name });
+  try {
+    // Retrieve article meta data
+    const articleMeta = await db.collection("articleaction").findOne({ name });
 
-  if (article) {
-    const upvoteIds = article.upvoteIds || [];
-    const canUpvote = uid && !upvoteIds.includes(uid);
+    if (articleMeta) {
+      const upvoteIds = article.upvoteIds || [];
+      const canUpvote = uid && !upvoteIds.includes(uid);
 
-    if (canUpvote) {
-      await db.collection("articleaction").updateOne(
-        { name },
-        {
-          $inc: { upvotes: 1 },
-          $push: { upvoteIds: uid },
-        }
-      );
+      // Update upvotes if allowed
+      if (canUpvote) {
+        await db.collection("articleaction").updateOne(
+          { name },
+          {
+            $inc: { upvotes: 1 },
+            $push: { upvoteIds: uid },
+          }
+        );
+      }
+
+      // Retrieve updated article meta data
+      const updatedArticleMeta = await db.collection("articleaction").findOne({ name });
+
+      // Retrieve article content
+      const articleContent = await db.collection("article").findOne({ name });
+
+      if (articleContent) {
+        const fullArticle = {
+          ...updatedArticleMeta,
+          ...articleContent,
+        };
+
+        fullArticle.canUpvote = uid && !updatedArticleMeta.upvoteIds.includes(uid);
+        res.json(fullArticle);
+      } else {
+        res.sendStatus(404).send("Article content not found");
+      }
+    } else {
+      res.status(404).send("Article not found");
     }
-    const updatedArticle = await db.collection("articleaction").findOne({ name });
-    res.json(updatedArticle);
-  } else {
-    res.send("That article doesn't exist");
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
