@@ -27,15 +27,17 @@ const ArticlePage = () => {
   useEffect(() => {
     const loadArticleInfo = async () => {
       try {
+        setLoading(true);
         const token = user && (await user.getIdToken());
         const headers = token ? { authtoken: token } : {};
         const response = await axios.get(`/api/articles/${articleId}`, {
           headers,
         });
         setArticleInfo(response.data);
-        setLoading(false);
       } catch (error) {
         console.error("Error loading article: ", error);
+        setArticleInfo({});
+      } finally {
         setLoading(false);
       }
     };
@@ -46,7 +48,9 @@ const ArticlePage = () => {
   }, [isLoading, user, articleId]);
 
   const addUpvote = async () => {
+    setLoading(true);
     try {
+      setLoading(true);
       const token = user && (await user.getIdToken());
       const headers = token ? { authtoken: token } : {};
       const response = await axios.put(
@@ -54,9 +58,13 @@ const ArticlePage = () => {
       null,
       { headers }
     );
+    // console.log(response.data);
     setArticleInfo(response.data);
+    // console.log(articleInfo);
     } catch (error) {
       console.error("Error adding upvote: ", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,7 +76,6 @@ const ArticlePage = () => {
       </div>
     )
   }
-
 
   if (!articleInfo.title) {
     return <NotFoundPage />;

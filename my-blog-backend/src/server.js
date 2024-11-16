@@ -85,9 +85,10 @@ app.put("/api/articles/:name/upvote", async (req, res) => {
   try {
     // Retrieve article meta data
     const articleMeta = await db.collection("articleaction").findOne({ name });
+    //console.log("articleMeta:", articleMeta);
 
     if (articleMeta) {
-      const upvoteIds = article.upvoteIds || [];
+      const upvoteIds = articleMeta.upvoteIds || [];
       const canUpvote = uid && !upvoteIds.includes(uid);
 
       // Update upvotes if allowed
@@ -103,9 +104,11 @@ app.put("/api/articles/:name/upvote", async (req, res) => {
 
       // Retrieve updated article meta data
       const updatedArticleMeta = await db.collection("articleaction").findOne({ name });
+      //console.log("updatedArticleMeta:", updatedArticleMeta);
 
       // Retrieve article content
       const articleContent = await db.collection("article").findOne({ name });
+      //console.log("articleContent:", articleContent);
 
       if (articleContent) {
         const fullArticle = {
@@ -114,6 +117,8 @@ app.put("/api/articles/:name/upvote", async (req, res) => {
         };
 
         fullArticle.canUpvote = uid && !updatedArticleMeta.upvoteIds.includes(uid);
+        //console.log("fullArticle:", fullArticle);
+
         res.json(fullArticle);
       } else {
         res.sendStatus(404).send("Article content not found");
