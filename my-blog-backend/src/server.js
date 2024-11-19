@@ -137,18 +137,30 @@ app.post("/api/articles/:name/comments", async (req, res) => {
   const { text } = req.body;
   const { email } = req.user;
 
-  await db.collection("articleaction").updateOne(
-    { name },
-    {
-      $push: { comments: { postedBy: email, text } },
-    }
-  );
-  const article = await db.collection("articleaction").findOne({ name });
+  try {
+    await db.collection("articleaction").updateOne(
+      { name },
+      {
+        $push: { comments: { postedBy: email, text } },
+      }
+    );
 
-  if (article) {
-    res.json(article);
+    const updatedArticleMeta = await db.collection("articleaction").findOne({ name });
+    const articleContent = await db.collection("article").findOne({ name });
+
+    if (articleContent) {
+      const fullArticle = {
+        ...updatedArticleMeta,
+        ...articleContent,
+      };
+
+      fullArticle.canUpvote = uid && !updatedArticleMeta.upvoteIds.includes(uid);
+      res.json(fullArticle);
   } else {
-    res.send("That article doesn't exist");
+    res.status(404).send("Article content not found");
+  }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
