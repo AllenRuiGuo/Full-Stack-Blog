@@ -147,10 +147,10 @@ app.post("/api/articles/:name/comments", async (req, res) => {
     );
 
     const updatedArticleMeta = await db.collection("articleaction").findOne({ name });
-    console.log("updatedArticleMeta:", updatedArticleMeta);
+    //console.log("updatedArticleMeta:", updatedArticleMeta);
 
     const articleContent = await db.collection("article").findOne({ name });
-    console.log("articleContent:", articleContent);
+    //console.log("articleContent:", articleContent);
 
     if (articleContent) {
       const fullArticle = {
@@ -159,7 +159,7 @@ app.post("/api/articles/:name/comments", async (req, res) => {
       };
 
       fullArticle.canUpvote = uid && !updatedArticleMeta.upvoteIds.includes(uid);
-      console.log("fullArticle:", fullArticle);
+      //console.log("fullArticle:", fullArticle);
       
       res.json(fullArticle);
   } else {
