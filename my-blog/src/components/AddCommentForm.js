@@ -6,6 +6,7 @@ const AddCommentForm = ({ articleName, onArticleUpdated }) => {
   const [name, setName] = useState("");
   const [commentText, setCommentText] = useState("");
   const { user } = useUser();
+  const [loading, setLoading] = useState(false);
 
   const getDisplayName = (email) => {
     const [username] = email.split("@");
@@ -13,22 +14,38 @@ const AddCommentForm = ({ articleName, onArticleUpdated }) => {
   };
 
   const addComment = async () => {
-    const token = user && (await user.getIdToken());
-    const headers = token ? { authtoken: token } : {};
-    const response = axios.post(
-      `/api/articles/${articleName}/comments`,
-      {
-        postedBy: name,
-        text: commentText,
-      },
-      { headers }
-    );
-    const updatedArticle = (await response).data;
-    console.log("updatedArticle:", updatedArticle);
-    onArticleUpdated(updatedArticle);
-    setName("");
-    setCommentText("");
+    setLoading(true);
+    try {
+      const token = user && (await user.getIdToken());
+      const headers = token ? { authtoken: token } : {};
+      const response = axios.post(
+        `/api/articles/${articleName}/comments`,
+        {
+          postedBy: name,
+          text: commentText,
+        },
+        { headers }
+      );
+      const updatedArticle = (await response).data;
+      console.log("updatedArticle:", updatedArticle);
+      onArticleUpdated(updatedArticle);
+      setName("");
+      setCommentText(""); 
+    } catch (error) {
+      console.error("Error adding comment: ", error);
+    } finally {
+      setLoading(false);
+    }   
   };
+
+  if (loading) {
+    return (
+      <div className="loading-overlay">
+        <div className="spinner-border text-primary large-spinner" role="status">         
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div id="add-comment-form" className="w-100">
