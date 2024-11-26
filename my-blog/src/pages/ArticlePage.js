@@ -85,6 +85,7 @@ const ArticlePage = () => {
     <div className="container x-padding-container">
       <h1 className="text-center mb-4">{articleInfo.title}</h1>
       <div className="upvotes-section d-flex justify-content-start align-items-center">
+        {/*
         <p className="my-3 me-3">
           This article has {articleInfo.upvotes} upvote(s)
         </p>
@@ -100,7 +101,34 @@ const ArticlePage = () => {
           >
             Log in to upvote
           </button>
-        )}        
+        )}  
+        */}
+        <p className="my-3 me-3">
+          {user ? (
+            <button
+              className="heart-button"
+              onClick={addUpvote}
+              disabled={!canUpvote || loading}
+              aria-label="Upvote"
+            >
+              {canUpvote ? (
+                <FaRegHeart className="heart-icon outline" />
+              ) : (
+                <FaHeart className="heart-icon filled" />
+              )}
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                navigate("/login");
+              }}
+              aria-label="Log in to upvote"
+            >
+              <FaRegHeart className="heart-icon outline" />
+            </button>
+          )}
+          <span className="ms-2">{articleInfo.upvotes}</span>
+        </p>
       </div>
       <div className="py-3">
         {articleInfo.content.map((paragraph, i) => (
