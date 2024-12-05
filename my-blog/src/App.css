@@ -210,6 +210,10 @@ button:disabled {
   border: none;
 }
 
+.heart-icon.filled {
+  color: red;
+}
+
 @media (max-width: 576px) {
   .x-padding-container {
     padding: 0 24px !important;
