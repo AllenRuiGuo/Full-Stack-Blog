@@ -204,6 +204,12 @@ button:disabled {
   pointer-events: none;
 }
 
+.heart-button {
+  background: none !important;
+  color: #555555 !important;
+  border: none;
+}
+
 @media (max-width: 576px) {
   .x-padding-container {
     padding: 0 24px !important;

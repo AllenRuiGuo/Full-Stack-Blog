@@ -119,6 +119,7 @@ const ArticlePage = () => {
             </button>
           ) : (
             <button
+              className="heart-button"
               onClick={() => {
                 navigate("/login");
               }}
