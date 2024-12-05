@@ -133,7 +133,7 @@ const ArticlePage = () => {
               <FaRegHeart className="heart-icon outline" />
             </button>
           )}
-          <span className="ms-2">{articleInfo.upvotes}</span>
+          <span className="">{articleInfo.upvotes}</span>
         </p>
       </div>
       <hr />

@@ -206,12 +206,15 @@ button:disabled {
 
 .heart-button {
   background: none !important;
-  color: #555555 !important;
   border: none;
 }
 
 .heart-icon.filled {
   color: red;
+}
+
+.heart-icon.outline {
+  color: gray;
 }
 
 @media (max-width: 576px) {
