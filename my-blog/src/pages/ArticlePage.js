@@ -83,7 +83,12 @@ const ArticlePage = () => {
 
   return (
     <div className="container x-padding-container">
-      <h1 className="text-center mb-4">{articleInfo.title}</h1>
+      <h1 className="text-center mb-4">{articleInfo.title}</h1>      
+      <div className="pt-3 pb-0">
+        {articleInfo.content.map((paragraph, i) => (
+          <p key={i}>{paragraph}</p>
+        ))}
+      </div>
       <div className="upvotes-section d-flex justify-content-start align-items-center">
         {/*
         <p className="my-3 me-3">
@@ -103,7 +108,7 @@ const ArticlePage = () => {
           </button>
         )}  
         */}
-        <p className="my-3 me-3">
+        <p className="my-0 me-3">
           {user ? (
             <button
               className="heart-button"
@@ -130,11 +135,6 @@ const ArticlePage = () => {
           )}
           <span className="ms-2">{articleInfo.upvotes}</span>
         </p>
-      </div>
-      <div className="py-3">
-        {articleInfo.content.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
-        ))}
       </div>
       <hr />
       <div className="comments-section d-flex justify-content-start align-items-center mt-4">
