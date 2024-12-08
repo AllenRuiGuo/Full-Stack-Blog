@@ -147,28 +147,11 @@ const ArticlePage = () => {
       </div>
       <hr />
       <div className="comments-section d-flex justify-content-start align-items-center mt-4">
-        <button
-          className="btn btn-primary"
-          onClick={() => setShowModal(true)}
-        >
+        <button className="btn btn-primary mb-3" onClick={handleAddCommentClick}>
           Add a comment
         </button>
-        {user ? (
-          <AddCommentForm
-            articleName={articleId}
-            onArticleUpdated={(updatedArticle) => setArticleInfo(updatedArticle)}
-          />
-        ) : (
-          <button
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Log in to add a comment
-          </button>
-        )}
-      </div>    
-      <CommentsList comments={articleInfo.comments} />
+      </div> 
+      <CommentsList comments={articleInfo.comments} />   
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
