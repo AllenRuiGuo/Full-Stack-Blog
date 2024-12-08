@@ -19,6 +19,7 @@ const ArticlePage = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const { canUpvote } = articleInfo;
   const { articleId } = useParams();
 
