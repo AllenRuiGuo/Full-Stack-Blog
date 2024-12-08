@@ -155,6 +155,25 @@ const ArticlePage = () => {
         )}
       </div>    
       <CommentsList comments={articleInfo.comments} />
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button
+              className="close-modal-button"
+              onClick={() => setShowModal(false)}
+            >
+              &times;
+            </button>
+            <AddCommentForm
+              articleName={articleId}
+              onArticleUpdated={(updatedArticle) => {
+                setArticleInfo(updatedArticle);
+                setShowModal(false); // Close modal after submitting
+              }}
+            />
+          </div>
+        </div>
+      ) }
     </div>
   );
 };
