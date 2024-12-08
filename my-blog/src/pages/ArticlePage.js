@@ -69,6 +69,14 @@ const ArticlePage = () => {
     }
   };
 
+  const handleAddCommentClick = () => {
+    if (!user) {
+      navigate("/login");
+    } else {
+      setShowModal(true);
+    }
+  };
+
   if (loading) {
     return (
       <div className="loading-overlay">
@@ -139,6 +147,12 @@ const ArticlePage = () => {
       </div>
       <hr />
       <div className="comments-section d-flex justify-content-start align-items-center mt-4">
+        <button
+          className="btn btn-primary"
+          onClick={() => setShowModal(true)}
+        >
+          Add a comment
+        </button>
         {user ? (
           <AddCommentForm
             articleName={articleId}
