@@ -146,28 +146,40 @@ const ArticlePage = () => {
         </p>
       </div>
       <hr />
-      <div className="comments-section d-flex justify-content-start align-items-center mt-4">
+      <div className="comments-section mt-4">
         <button className="btn btn-primary mb-3" onClick={handleAddCommentClick}>
           Add a comment
         </button>
       </div> 
       <CommentsList comments={articleInfo.comments} />   
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button
-              className="close-modal-button"
-              onClick={() => setShowModal(false)}
-            >
-              &times;
-            </button>
-            <AddCommentForm
-              articleName={articleId}
-              onArticleUpdated={(updatedArticle) => {
-                setArticleInfo(updatedArticle);
-                setShowModal(false); // Close modal after submitting
-              }}
-            />
+        <div 
+          className="modal fade show"
+          tabIndex="-1"
+          style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          role="dialog"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Add a comment</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setShowModal(false)}
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body">
+                <AddCommentForm
+                  articleName={articleId}
+                  onArticleUpdated={(updatedArticle) => {
+                  setArticleInfo(updatedArticle);
+                  setShowModal(false); // Close modal after submitting
+                  }}
+                />
+              </div>
+            </div>                    
           </div>
         </div>
       ) }

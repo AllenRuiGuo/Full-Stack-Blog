@@ -52,14 +52,13 @@ const AddCommentForm = ({ articleName, onArticleUpdated }) => {
       <h3 className="mb-3">Add a Comment</h3>
       {user && <p>You are posting as {getDisplayName(user.email)}</p>}
       <textarea
-        className="mb-3"
+        className="mb-3 w-100"
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
         rows="4"
         col="300"
       />
       <button className="mb-3" onClick={addComment}>Add Comment</button>
-      <hr />
     </div>
   );
 };
