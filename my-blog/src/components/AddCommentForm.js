@@ -49,7 +49,6 @@ const AddCommentForm = ({ articleName, onArticleUpdated }) => {
 
   return (
     <div id="add-comment-form" className="w-100">
-      <h3 className="mb-3">Add a Comment</h3>
       {user && <p>You are posting as {getDisplayName(user.email)}</p>}
       <textarea
         className="mb-3 w-100"
@@ -58,7 +57,7 @@ const AddCommentForm = ({ articleName, onArticleUpdated }) => {
         rows="4"
         col="300"
       />
-      <button className="mb-3" onClick={addComment}>Add Comment</button>
+      <button className="btn btn-primary mb-3" onClick={addComment}>Add comment</button>
     </div>
   );
 };
