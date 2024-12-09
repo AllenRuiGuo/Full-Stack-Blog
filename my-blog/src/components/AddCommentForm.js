@@ -14,6 +14,10 @@ const AddCommentForm = ({ articleName, onArticleUpdated }) => {
   };
 
   const addComment = async () => {
+    if (!commentText.trim()) {
+      return;
+    }
+    
     setLoading(true);
     try {
       const token = user && (await user.getIdToken());
@@ -56,8 +60,15 @@ const AddCommentForm = ({ articleName, onArticleUpdated }) => {
         onChange={(e) => setCommentText(e.target.value)}
         rows="4"
         col="300"
+        placeholder="Write your comment here..."
       />
-      <button className="btn btn-primary mb-3" onClick={addComment}>Add comment</button>
+      <button 
+        className="btn btn-primary mb-3" 
+        onClick={addComment}
+        disabled={!commentText.trim()}
+      >
+        Add comment
+      </button>
     </div>
   );
 };
