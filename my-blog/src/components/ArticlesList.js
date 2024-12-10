@@ -15,6 +15,14 @@ const ArticlesList = ({ articles }) => {
                 <h3 className="card-title mb-3">{article.title}</h3>
               </Link>
               <p className="card-text">{article.content[0].substring(0, 150)}...</p>
+              <div className="d-flex justify-content-start align-items-center mt-3">
+                <span>
+                  <i className="bi bi-heart-fill text-danger me-1"></i> {article.upvotes}
+                </span>
+                <span>
+                  <i className="bi bi-chat-fill text-secondary me-1"></i> {article.comments.length}
+                </span>
+              </div>  
               <Link
                 className="text-primary text-decoration-none"
                 to={`/articles/${article.name}`}
