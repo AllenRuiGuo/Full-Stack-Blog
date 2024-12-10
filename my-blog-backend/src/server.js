@@ -245,9 +245,44 @@ app.post("/api/about", async (req, res) => {
 });
 
 // Fetch articles
+// app.get("/api/articles", async (req, res) => {
+//   try {
+//     const articles = await db.collection("article").find({}).toArray();
+//     if (articles.length > 0) {
+//       res.json(articles);
+//     } else {
+//       res.status(404).json({ message: "No articles found" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+
+// Fetch articles and article action data
 app.get("/api/articles", async (req, res) => {
   try {
-    const articles = await db.collection("article").find({}).toArray();
+    const articles = await db.collection("article").aggregate([
+      {
+        $lookup: {
+          from: "articleaction",
+          localField: "name",
+          foreignField: "name",
+          as: "actions",
+        },
+      },
+      {
+        $addFields: {
+          upvotes: { $arrayElemAt: ["$actions.upvotes", 0] },
+          comments: { $arrayElemAt: ["$actions.comments", 0] },
+        },
+      },
+      {
+        $project: {
+          actions: 0,
+        },
+      },
+    ]).toArray();
+
     if (articles.length > 0) {
       res.json(articles);
     } else {
