@@ -272,8 +272,18 @@ app.get("/api/articles", async (req, res) => {
       },
       {
         $addFields: {
-          upvotes: { $arrayElemAt: ["$actions.upvotes", 0] },
-          comments: { $arrayElemAt: ["$actions.comments", 0] },
+          upvotes: { 
+            $ifNull: [
+              { $first: "$actions.upvotes" },
+              0,
+            ], 
+          },
+          comments: { 
+            $ifNull: [
+              { $first: "$actions.comments" },
+              [],
+            ],
+          },
         },
       },
       {
@@ -282,6 +292,8 @@ app.get("/api/articles", async (req, res) => {
         },
       },
     ]).toArray();
+
+    console.log("articles:", articles);
 
     if (articles.length > 0) {
       res.json(articles);

@@ -253,6 +253,10 @@ button:disabled {
   color: black;
 }
 
+.article-card-description {
+  min-height: 72px;
+}
+
 @media (max-width: 576px) {
   .x-padding-container {
     padding: 0 24px !important;

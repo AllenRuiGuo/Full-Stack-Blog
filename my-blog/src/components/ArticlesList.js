@@ -14,21 +14,24 @@ const ArticlesList = ({ articles }) => {
               >
                 <h3 className="card-title mb-3">{article.title}</h3>
               </Link>
-              <p className="card-text">{article.content[0].substring(0, 150)}...</p>
-              <div className="d-flex justify-content-start align-items-center mt-3">
-                <span>
-                  <i className="bi bi-heart-fill text-danger me-1"></i> {article.upvotes}
+              <p className="card-text article-card-description">{article.content[0].substring(0, 150)}...</p>
+              <div className="d-flex justify-content-start align-items-center mb-3">
+                <span className="d-flex align-items-center mx-2">
+                  <i className="bi bi-heart-fill text-danger mx-2"></i> {article.upvotes}
                 </span>
-                <span>
-                  <i className="bi bi-chat-fill text-secondary me-1"></i> {article.comments.length}
+                <span className="d-flex align-items-center mx-2">
+                  <i className="bi bi-chat-dots text-secondary mx-2"></i> {article.comments.length}
                 </span>
               </div>  
-              <Link
-                className="text-primary text-decoration-none"
-                to={`/articles/${article.name}`}
-              >
-                Read more
-              </Link>
+              <div className="d-flex justify-content-end">
+                <Link
+                  className="text-primary text-decoration-none"
+                  to={`/articles/${article.name}`}
+                >
+                  Read more
+                </Link>
+              </div>
+              
             </div>
           </div>
         </div>       
