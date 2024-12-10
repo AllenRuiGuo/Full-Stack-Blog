@@ -126,9 +126,9 @@ const ArticlePage = () => {
               aria-label="Upvote"
             >
               {canUpvote ? (
-                <FaRegHeart className="heart-icon outline" />
+                <i className="bi bi-heart text-dark"></i>
               ) : (
-                <FaHeart className="heart-icon filled" />
+                <i className="bi bi-heart-fill text-danger"></i>
               )}
             </button>
           ) : (
@@ -139,7 +139,7 @@ const ArticlePage = () => {
               }}
               aria-label="Log in to upvote"
             >
-              <FaRegHeart className="heart-icon outline" />
+              <i className="bi bi-heart text-dark"></i>
             </button>
           )}
           <span className="">{articleInfo.upvotes}</span>
