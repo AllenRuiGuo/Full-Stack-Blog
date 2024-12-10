@@ -293,7 +293,7 @@ app.get("/api/articles", async (req, res) => {
       },
     ]).toArray();
 
-    console.log("articles:", articles);
+    // console.log("articles:", articles);
 
     if (articles.length > 0) {
       res.json(articles);
