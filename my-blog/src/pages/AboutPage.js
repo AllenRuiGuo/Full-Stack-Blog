@@ -30,7 +30,7 @@ const AboutPage = () => {
   }
 
   return (
-    <div className="container x-padding-container">
+    <div className="container x-padding-container pb-5">
       <h1 className="text-center pb-3">{content.header}</h1>
       {content.paragraphs.map((paragraph, index) => (
         <p key={index}>{paragraph}</p>
