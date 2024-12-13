@@ -71,6 +71,7 @@ nav a {
   max-width: 1200px;
   margin: auto;
   padding-top: 72px;
+  min-height: 100vh;
 }
 
 .article-list-item {
