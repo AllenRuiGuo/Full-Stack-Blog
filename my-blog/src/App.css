@@ -27,6 +27,19 @@ h4 {
   background: white;
 } */
 
+#page-body {
+  flex: 1;
+  max-width: 1200px;
+  margin: auto;
+  padding-top: 72px;
+}
+
+#page-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 nav ul {
   list-style-type: none;
   margin: 0;
@@ -44,6 +57,12 @@ nav a {
   color: black;
   font-weight: 500;
   padding: 16px 16px;
+}
+
+.navbar {
+  position: sticky !important;
+  top: 0;
+  z-index: 100;
 }
 
 /* nav a:hover {
@@ -67,18 +86,6 @@ nav a {
   width: auto;
 }
 
-#page-body {
-  flex: 1;
-  max-width: 1200px;
-  margin: auto;
-  padding-top: 72px;
-}
-
-#page-app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
 
 .article-list-item {
   text-decoration: none;
