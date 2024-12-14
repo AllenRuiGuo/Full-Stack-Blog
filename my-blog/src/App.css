@@ -68,9 +68,15 @@ nav a {
 }
 
 #page-body {
+  flex: 1;
   max-width: 1200px;
   margin: auto;
   padding-top: 72px;
+}
+
+#page-app {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
