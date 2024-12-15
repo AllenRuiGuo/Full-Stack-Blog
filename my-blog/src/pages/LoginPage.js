@@ -40,7 +40,10 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button onClick={longIn} className="my-2 w-100">Log In</button>
-          <Link to="/create-account" className="link">
+          <Link 
+            to="/create-account"
+            state={{ from }} 
+            className="link">
             Don't have an account? Create one
           </Link>
       </div>    
