@@ -99,24 +99,6 @@ const ArticlePage = () => {
         ))}
       </div>
       <div className="upvotes-section d-flex justify-content-start align-items-center">
-        {/*
-        <p className="my-3 me-3">
-          This article has {articleInfo.upvotes} upvote(s)
-        </p>
-        {user ? (
-          <button onClick={addUpvote} disabled={!canUpvote}>
-            {canUpvote ? "Upvote" : "Already Upvoted"}
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Log in to upvote
-          </button>
-        )}  
-        */}
         <p className="my-0 me-3">
           {user ? (
             <button
@@ -135,7 +117,7 @@ const ArticlePage = () => {
             <button
               className="heart-button"
               onClick={() => {
-                navigate("/login");
+                navigate("/login", { state: { from: `/articles/${articleId}` } });
               }}
               aria-label="Log in to upvote"
             >
