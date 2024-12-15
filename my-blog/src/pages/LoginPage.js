@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { async } from "@firebase/util";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -9,11 +8,13 @@ const LoginPage = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
   const longIn = async () => {
     try {
       await signInWithEmailAndPassword(getAuth(), email, password);
-      navigate("/articles");
+      navigate(from, { replace: true });
     } catch (e) {
       setError(e.message);
     }
