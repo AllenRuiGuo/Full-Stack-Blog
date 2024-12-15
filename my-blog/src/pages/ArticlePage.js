@@ -5,7 +5,6 @@ import NotFoundPage from "./NotFoundPage";
 import CommentsList from "../components/CommentsList";
 import AddCommentForm from "../components/AddCommentForm";
 import useUser from "../hooks/useUser";
-// import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const ArticlePage = () => {
   const navigate = useNavigate();
@@ -71,7 +70,7 @@ const ArticlePage = () => {
 
   const handleAddCommentClick = () => {
     if (!user) {
-      navigate("/login");
+      navigate("/login", { state: { from: `/articles/${articleId}` } });
     } else {
       setShowModal(true);
     }
