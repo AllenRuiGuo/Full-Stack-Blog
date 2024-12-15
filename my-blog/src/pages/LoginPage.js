@@ -13,6 +13,10 @@ const LoginPage = () => {
 
   const longIn = async () => {
     try {
+      if (!email || !password) {
+        setError("All fields are required");
+        return;
+      }
       await signInWithEmailAndPassword(getAuth(), email, password);
       navigate(from, { replace: true });
     } catch (e) {
